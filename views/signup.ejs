@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<body>
+    <%- include("./partials/nav") %>
+    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5 col-lg-4">
+
+                <div class="card p-4 shadow-sm">
+                    <h4 class="text-center mb-3">Create Account</h4>
+
+                    <form action="/user/signup" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input 
+                                type="text" 
+                                name="fullName" 
+                                class="form-control" 
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email address</label>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                class="form-control" 
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                class="form-control" 
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Sign Up
+                        </button>
+                    </form>
+
+                    <p class="text-center mt-3 mb-0">
+                        Already have an account? 
+                        <a href="/user/signin">Sign In</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include("./partials/script") %>
+</body>
+</html>

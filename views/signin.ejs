@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+</head>
+<body>
+    <%- include("./partials/nav") %>
+    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5 col-lg-4">
+                
+                <div class="card p-4 shadow-sm">
+                    <h4 class="text-center mb-3">Sign In</h4>
+
+                    <form action="/user/signin" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Email address</label>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                class="form-control" 
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                class="form-control" 
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Sign In
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include("./partials/script") %>
+</body>
+</html>
