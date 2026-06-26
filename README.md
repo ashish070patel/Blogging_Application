@@ -21,9 +21,18 @@ A full-stack blogging platform built with Node.js, Express, MongoDB, and EJS —
 
 
 🛠️ Tech Stack
-
-
-
+| Layer       | Technology                         |
+| ----------- | ---------------------------------- |
+| Runtime     | Node.js                            |
+| Framework   | Express.js v5                      |
+| Database    | MongoDB (via Mongoose)             |
+| Templating  | EJS                                |
+| Auth        | JWT (jsonwebtoken) + cookie-parser |
+| File Upload | Multer                             |
+| Validation  | express-validator                  |
+| Styling     | Bootstrap 5                        |
+| Dev Tool    | Nodemon                            |
+| Deployment  | AWS Elastic Beanstalk (ap-south-1) |
 
 📁 Project Structure
 
