@@ -1,7 +1,7 @@
 require("dotenv").config();
 
-/*const dns = require("dns");
-dns.setServers(["8.8.8.8"]);*/
+// const dns = require("dns");
+// dns.setServers(["8.8.8.8"]);
 
 const path = require("path");
 const express = require("express");

@@ -5,7 +5,9 @@ const User = require("../models/user");
 const router = Router();
 
 router.get("/signin", (req, res) => {
-    res.render("signin");
+    res.render("signin", {
+		duplicate: req.query.duplicate === "true",
+	});
 });
 
 router.get("/signup", (req, res) => {
@@ -45,12 +47,21 @@ router.post("/signup",[
 			});
 		}
 		const { fullName, email, password } = req.body;
-		await User.create({
-			fullName,
-			email,
-			password,
-		});
-		return res.redirect("/");
+		try {
+			const existingUser = await User.findOne({ email });
+			if (existingUser) {
+            	return res.redirect("/user/signin?duplicate=true");
+        	}
+			await User.create({
+				fullName,
+				email,
+				password,
+			});
+			return res.redirect("/");
+		} catch (error) {
+        	console.error("Signup error:", error);
+        	return res.status(500).send("Something went wrong");
+    	}
 	}
 );
 
