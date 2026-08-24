@@ -1,6 +1,8 @@
-const { Router } = require("express");
+const express = require("express");
+const { Router } = express;
 const multer = require("multer");
 const path = require("path");
+const { marked } = require("marked");
 
 const Blog = require("../models/blog");
 const Comment = require("../models/comment");
@@ -25,6 +27,11 @@ router.get("/add-new", (req, res) => {
     return res.render("addBlog", {
         user: req.user,
     });
+});
+
+router.post("/markdown-to-html", express.json(), (req, res) => {
+    const html = marked.parse(req.body.markdown);
+    res.send(html);
 });
 
 // View a specific blog and its comments

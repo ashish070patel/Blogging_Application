@@ -18,15 +18,83 @@
                 <label for="title" class="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" aria-describedby="title">
             </div>
-            <div class="mb-3">
+            <!--<div class="mb-3">
                 <label for="body" class="body">Body</label>
                 <textarea name="body" class="form-control" id="body"></textarea>
+            </div>-->
+            <div class="mb-3">
+                <label for="body" class="body">Body</label>
+
+                <div
+                    id="bodyEditor"
+                    class="form-control"
+                    contenteditable="true"
+                    style="min-height: 400px; overflow-y: auto;"
+                ></div>
+
+                <input type="hidden" name="body" id="body">
             </div>
             <div class="mb-3">
                 <button class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
+    <script>
+        const editor = document.getElementById("bodyEditor");
+        const hiddenBody = document.getElementById("body");
+
+        editor.addEventListener("paste", async (event) => {
+            event.preventDefault();
+
+            const html = event.clipboardData.getData("text/html");
+            const text = event.clipboardData.getData("text/plain");
+
+            if (html) {
+                // If copied content already has formatting,
+                // preserve that formatting.
+                document.execCommand("insertHTML", false, html);
+            } else {
+                // If plain Markdown is pasted,
+                // convert Markdown to HTML.
+                const response = await fetch("/blog/markdown-to-html", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ markdown: text })
+                });
+
+                const convertedHtml = await response.text();
+
+                document.execCommand("insertHTML", false, convertedHtml);
+            }
+        });
+        editor.addEventListener("input", () => {
+    const headings = editor.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+    headings.forEach((heading) => {
+        if (heading.textContent.trim() === "") {
+            const p = document.createElement("p");
+            p.innerHTML = "<br>";
+
+            heading.replaceWith(p);
+
+            // Put cursor inside the new paragraph
+            const range = document.createRange();
+            const selection = window.getSelection();
+
+            range.selectNodeContents(p);
+            range.collapse(true);
+
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    });
+});
+        document.querySelector("form").addEventListener("submit", () => {
+            hiddenBody.value = editor.innerHTML;
+        });
+    </script>
     <%- include("./partials/script") %>
 </body>
 </html>
