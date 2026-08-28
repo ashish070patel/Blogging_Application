@@ -19,6 +19,13 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    //reset password
+    resetPasswordToken: {
+        type: String,
+    },
+    resetPasswordExpires: {
+        type: Date,
+    },
     profileImage: {
         type: String,
         required: true,

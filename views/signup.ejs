@@ -16,6 +16,14 @@
                 <div class="card p-4 shadow-sm">
                     <h4 class="text-center mb-3">Create Account</h4>
 
+                    <% if (typeof notregistered !== "undefined" && notregistered) { %>
+                        <script>
+                            alert("No account found with this email. Please sign up.");
+                            window.history.replaceState({}, document.title, "/user/signup");
+                        </script>
+                    <% } %>
+
+
                     <form action="/user/signup" method="post">
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>
