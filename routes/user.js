@@ -53,7 +53,8 @@ router.get("/reset-password/:token", async (req, res) => {
     }
 });
 router.post("/signin", async (req, res) => {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const email = req.body.email.trim().toLowerCase();
 
     try {
         const user = await User.findOne({ email });
@@ -98,7 +99,8 @@ router.post("/signup",[
 				error: errors.array()[0].msg,
 			});
 		}
-		const { fullName, email, password } = req.body;
+		const { fullName, password } = req.body;
+        const email = req.body.email.trim().toLowerCase();
 		try {
 			const existingUser = await User.findOne({ email });
 			if (existingUser) {
@@ -117,14 +119,14 @@ router.post("/signup",[
 	}
 );
 router.post("/forgot-password", async (req, res) => {
-    const { email } = req.body;
+    const email = req.body.email.trim().toLowerCase();
 
     try {
         const user = await User.findOne({ email });
 
         if (!user) {
             return res.render("forgot-password", {
-                error: "No account found with this email address.",
+                success: "If an account exists with this email, a password reset link has been sent.",
             });
         }
 
@@ -159,6 +161,13 @@ router.post("/forgot-password", async (req, res) => {
 router.post("/reset-password/:token", async (req, res) => {
     const { token } = req.params;
     const { password, confirmPassword } = req.body;
+
+    if (!password || password.length < 6) {
+        return res.status(400).render("reset-password", {
+            token,
+            error: "Password must be at least 6 characters.",
+        });
+    }
 
     if (password !== confirmPassword) {
         return res.status(400).render("reset-password", {

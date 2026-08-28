@@ -47,12 +47,23 @@
 
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                class="form-control" 
-                                required
-                            >
+                            <div class="input-group">
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="signupPassword"
+                                    class="form-control" 
+                                    required
+                                >
+
+                                <button 
+                                    type="button" 
+                                    class="btn btn-outline-secondary"
+                                    onclick="togglePassword('signupPassword', this)"
+                                >
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">
@@ -69,7 +80,22 @@
             </div>
         </div>
     </div>
+<script>
+    function togglePassword(inputId, button) {
+        const passwordInput = document.getElementById(inputId);
+        const icon = button.querySelector("i");
 
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye");
+        }
+    }
+</script>
     <%- include("./partials/script") %>
 </body>
 </html>
