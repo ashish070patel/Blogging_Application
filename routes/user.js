@@ -6,8 +6,8 @@ const router = Router();
 
 router.get("/signin", (req, res) => {
     res.render("signin", {
-		duplicate: req.query.duplicate === "true",
-	});
+        duplicate: req.query.duplicate === "true",
+    });
 });
 
 router.get("/signup", (req, res) => {

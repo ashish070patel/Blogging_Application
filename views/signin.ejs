@@ -1,4 +1,4 @@
-<% if (duplicate) { %>
+<% if (typeof duplicate !== "undefined" && duplicate) { %>
     <script>
         alert("Email already registered. Please sign in.");
         window.history.replaceState({}, document.title, "/user/signin");
